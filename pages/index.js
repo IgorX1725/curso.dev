@@ -1,5 +1,5 @@
 const Home = ()=>{
-    const homeMessage = process.env.NEXT_PUBLIC_MESSAGE
+  const homeMessage = process.env.NEXT_PUBLIC_MESSAGE
 return <h1>{homeMessage}</h1>
 }
 
