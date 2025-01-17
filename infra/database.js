@@ -1,11 +1,10 @@
 import { Client } from "pg";
 
 const query = async (queryObject) => {
-  
-let client 
+  let client;
 
   try {
-    client = await getNewClient()
+    client = await getNewClient();
 
     const result = await client.query(queryObject);
     return result;
@@ -16,7 +15,7 @@ let client
   }
 };
 
-const getNewClient = async ()=>{
+const getNewClient = async () => {
   const client = new Client({
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
@@ -26,13 +25,13 @@ const getNewClient = async ()=>{
     ssl: getSSLValues(),
   });
 
-  await client.connect()
-  return client
-}
+  await client.connect();
+  return client;
+};
 
 export default {
   query,
-  getNewClient
+  getNewClient,
 };
 
 const getSSLValues = () => {
