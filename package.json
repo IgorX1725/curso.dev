@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "pretest": "npm run services:up && npm run migration:up",
+    "pretest": "npm run services:up",
     "test": "concurrently -n next,jest --hide next -k -s command-jest \"next dev\" \"jest --runInBand --verbose\"",
     "pretest:watch": "npm run services:up && npm run migration:up",
     "test:watch": "concurrently -n next,jest --hide next -s command-jest \"next dev\" \"jest --watchAll --runInBand --verbose\"",
