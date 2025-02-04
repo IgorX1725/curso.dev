@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "predev": "npm run services:up && npm run services:wait:database && npm run migrations:up",
-    "dev": "next dev",
+    "dev": "./scripts/dev.sh",
     "postdev": "npm run services:stop",
     "pretest": "npm run services:up",
     "test": "concurrently -n next,jest --hide next -k -s command-jest \"next dev\" \"jest --runInBand --verbose\"",
