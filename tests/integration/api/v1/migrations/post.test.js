@@ -1,29 +1,39 @@
 import database from "infra/database";
 import orchestrator from "tests/orchestrator";
 
+let migrationRequest;
+
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
   await database.query("DROP schema public cascade; create schema public;");
+  migrationRequest = () =>
+    fetch("http://localhost:3000/api/v1/migrations", { method: "POST" });
 });
 
-test("GET to /api/v1/migrations should return 200", async () => {
-  const migrationRequest = () =>
-    fetch("http://localhost:3000/api/v1/migrations", { method: "POST" });
-  const responseBeforeMigrationsToBeRun = await migrationRequest();
-  expect(responseBeforeMigrationsToBeRun.status).toBe(201);
+describe("POST /api/v1/migrations", () => {
+  describe("Anonymous user", () => {
+    describe("Running pending migrations", () => {
+      test("For the first time", async () => {
+        const responseBeforeMigrationsToBeRun = await migrationRequest();
+        expect(responseBeforeMigrationsToBeRun.status).toBe(201);
 
-  const responseBodyBeforeMigrationsToBeRun =
-    await responseBeforeMigrationsToBeRun.json();
+        const responseBodyBeforeMigrationsToBeRun =
+          await responseBeforeMigrationsToBeRun.json();
 
-  expect(Array.isArray(responseBodyBeforeMigrationsToBeRun)).toBe(true);
-  expect(responseBodyBeforeMigrationsToBeRun.length).toBeGreaterThan(0);
+        expect(Array.isArray(responseBodyBeforeMigrationsToBeRun)).toBe(true);
+        expect(responseBodyBeforeMigrationsToBeRun.length).toBeGreaterThan(0);
+      });
 
-  const responseAfterMigrationsToBeRun = await migrationRequest();
-  expect(responseAfterMigrationsToBeRun.status).toBe(200);
+      test("For the second time", async () => {
+        const responseAfterMigrationsToBeRun = await migrationRequest();
+        expect(responseAfterMigrationsToBeRun.status).toBe(200);
 
-  const responseBodyAfterMigrationsToBeRun =
-    await responseAfterMigrationsToBeRun.json();
+        const responseBodyAfterMigrationsToBeRun =
+          await responseAfterMigrationsToBeRun.json();
 
-  expect(Array.isArray(responseBodyAfterMigrationsToBeRun)).toBe(true);
-  expect(responseBodyAfterMigrationsToBeRun.length).toEqual(0);
+        expect(Array.isArray(responseBodyAfterMigrationsToBeRun)).toBe(true);
+        expect(responseBodyAfterMigrationsToBeRun.length).toEqual(0);
+      });
+    });
+  });
 });
