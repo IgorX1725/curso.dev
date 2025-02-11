@@ -1,4 +1,5 @@
 import retry from "async-retry";
+import database from "infra/database";
 
 const fetchStatusPage = async () => {
   const response = await fetch("http://localhost:3000/api/v1/status");
@@ -14,10 +15,14 @@ const waitForWebServer = async () => {
   });
 };
 
+const clearDatabase = async () => {
+  await database.query("DROP schema public cascade; create schema public;");
+};
+
 const waitForAllServices = async () => {
   await waitForWebServer();
 };
 
-const orchestrator = { waitForAllServices };
+const orchestrator = { waitForAllServices, clearDatabase };
 
 export default orchestrator;
