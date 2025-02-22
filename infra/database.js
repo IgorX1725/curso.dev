@@ -9,9 +9,10 @@ const query = async (queryObject) => {
     const result = await client.query(queryObject);
     return result;
   } catch (error) {
-    throw new Error(error);
+    console.log("\n Error into database.js catch:");
+    throw error;
   } finally {
-    await client.end();
+    await client?.end();
   }
 };
 
