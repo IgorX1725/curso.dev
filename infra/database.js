@@ -11,7 +11,7 @@ const query = async (queryObject) => {
   } catch (error) {
     throw new Error(error);
   } finally {
-    await client.end();
+    await client?.end();
   }
 };
 
