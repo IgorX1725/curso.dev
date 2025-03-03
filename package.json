@@ -24,8 +24,8 @@
     "lint:next:fix": "next lint --dir . --fix",
     "lint:eslint:check": "eslint .",
     "lint:eslint:fix": "eslint . --fix",
-    "lint:all:check": "npm run lint:next:check && lint:eslint:check && lint:prettier:check",
-    "lint:all:fix": "npm run lint:next:fix && lint:eslint:fix && lint:prettier:fix",
+    "lint:all:check": "npm run lint:next:check && npm run lint:eslint:check && npm run lint:prettier:check",
+    "lint:all:fix": "npm run lint:next:fix && npm run lint:eslint:fix && npm run lint:prettier:fix",
     "prepare": "husky",
     "commit": "cz"
   },
