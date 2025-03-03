@@ -27,7 +27,7 @@ const listPendingMigrations = async () => {
   }
 };
 
-const runPendingMigrations = async (req, res) => {
+const runPendingMigrations = async () => {
   let dbClient;
 
   try {
