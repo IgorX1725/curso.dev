@@ -1,6 +1,6 @@
 import retry from "async-retry";
 import database from "infra/database";
-import migrator from "model/migrator";
+import migrator from "models/migrator";
 
 const fetchStatusPage = async () => {
   const response = await fetch("http://localhost:3000/api/v1/status");
