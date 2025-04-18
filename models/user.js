@@ -1,5 +1,34 @@
 import database from "infra/database.js";
-import { ValidationError } from "infra/errors.js";
+import { ValidationError, NotFoundError } from "infra/errors.js";
+
+const findOneByUsername = async (username) => {
+  async function runSelectQuery(username) {
+    const results = await database.query({
+      text: `
+      SELECT
+       *
+      FROM
+       users
+      WHERE
+       LOWER(username) = LOWER($1)
+       LIMIT 1;
+      `,
+      values: [username],
+    });
+
+    if (results.rowCount === 0) {
+      throw new NotFoundError({
+        message: "The specified username was not found in the system.",
+        action: "Please verify that the username is spelled correctly.",
+      });
+    }
+
+    return results.rows[0];
+  }
+
+  const foundUser = await runSelectQuery(username);
+  return foundUser;
+};
 
 const create = async (userInputValues) => {
   await validateUniqueEmail(userInputValues.email);
@@ -73,6 +102,7 @@ const create = async (userInputValues) => {
 
 const user = {
   create,
+  findOneByUsername,
 };
 
 export default user;
