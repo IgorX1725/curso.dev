@@ -1,5 +1,6 @@
 import retry from "async-retry";
 import database from "infra/database";
+import migrator from "models/migrator";
 
 const fetchStatusPage = async () => {
   const response = await fetch("http://localhost:3000/api/v1/status");
@@ -23,6 +24,13 @@ const waitForAllServices = async () => {
   await waitForWebServer();
 };
 
-const orchestrator = { waitForAllServices, clearDatabase };
+const runPendingMigrations = async () => {
+  await migrator.runPendingMigrations();
+};
+const orchestrator = {
+  waitForAllServices,
+  clearDatabase,
+  runPendingMigrations,
+};
 
 export default orchestrator;
