@@ -30,20 +30,20 @@ describe("GET /api/v1/users/[username]", () => {
 
       expect(response2.status).toBe(200);
 
-      const responseBody = await response2.json();
+      const response2Body = await response2.json();
 
-      expect(responseBody).toEqual({
-        id: responseBody.id,
+      expect(response2Body).toEqual({
+        id: response2Body.id,
         username: "SameCase",
         email: "samecase@email.com",
-        password: "Test123",
-        created_at: responseBody.created_at,
-        updated_at: responseBody.updated_at,
+        password: response2Body.password,
+        created_at: response2Body.created_at,
+        updated_at: response2Body.updated_at,
       });
 
-      expect(uuidVersion(responseBody.id)).toBe(4);
-      expect(Date.parse(responseBody.created_at)).not.toBeNaN();
-      expect(Date.parse(responseBody.updated_at)).not.toBeNaN();
+      expect(uuidVersion(response2Body.id)).toBe(4);
+      expect(Date.parse(response2Body.created_at)).not.toBeNaN();
+      expect(Date.parse(response2Body.updated_at)).not.toBeNaN();
     });
 
     test("With case mismatch", async () => {
@@ -67,20 +67,20 @@ describe("GET /api/v1/users/[username]", () => {
 
       expect(response2.status).toBe(200);
 
-      const responseBody = await response2.json();
+      const response2Body = await response2.json();
 
-      expect(responseBody).toEqual({
-        id: responseBody.id,
+      expect(response2Body).toEqual({
+        id: response2Body.id,
         username: "DifferentCase",
         email: "different.case@email.com",
-        password: "Test123",
-        created_at: responseBody.created_at,
-        updated_at: responseBody.updated_at,
+        password: response2Body.password,
+        created_at: response2Body.created_at,
+        updated_at: response2Body.updated_at,
       });
 
-      expect(uuidVersion(responseBody.id)).toBe(4);
-      expect(Date.parse(responseBody.created_at)).not.toBeNaN();
-      expect(Date.parse(responseBody.updated_at)).not.toBeNaN();
+      expect(uuidVersion(response2Body.id)).toBe(4);
+      expect(Date.parse(response2Body.created_at)).not.toBeNaN();
+      expect(Date.parse(response2Body.updated_at)).not.toBeNaN();
     });
 
     test("With nonexistent username", async () => {
