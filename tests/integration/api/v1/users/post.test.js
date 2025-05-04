@@ -94,7 +94,7 @@ describe("POST /api/v1/users", () => {
       expect(response2Body).toEqual({
         name: "ValidationError",
         message: "The given email is already in use.",
-        action: "Use another email to complete the signup.",
+        action: "Use another email to complete this action.",
         status_code: 400,
       });
     });
@@ -119,7 +119,7 @@ describe("POST /api/v1/users", () => {
       expect(response2Body).toEqual({
         name: "ValidationError",
         message: "The given username is already in use.",
-        action: "Use another username to complete the signup.",
+        action: "Use another username to complete this action.",
         status_code: 400,
       });
     });
