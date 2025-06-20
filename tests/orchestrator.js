@@ -1,7 +1,6 @@
 import retry from "async-retry";
 import database from "infra/database";
 import migrator from "models/migrator";
-import password from "models/password";
 import user from "models/user";
 import { faker } from "@faker-js/faker";
 
